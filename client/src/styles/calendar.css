@@ -1,0 +1,206 @@
+#overlayCalendar {
+  display: none; /* Hidden by default */
+  position: absolute;
+  border: 1px solid #eeeeee;
+  top: 145px;
+  left: 42px;
+  width: 335px;
+  z-index: 20;
+  background: #ffffff;
+}
+
+.attachOuter {
+  position: absolute !important;
+  width: 20px !important;
+  height: 10px !important;
+  left: 22px !important;
+  z-index: 2 !important;
+  top: -10px !important;
+
+}
+
+.attachFill {
+  fill: rgb(255, 255, 255) !important;
+}
+
+.attachInnerFill {
+  stroke: rgb(235, 235, 235) !important;
+  fill: transparent !important;
+}
+
+.container {
+  box-shadow: 0 1px 1px 1px rgba(72, 72, 72, 0.16);
+  padding: 4px;
+  text-align: center;
+}
+
+.header {
+  padding: 0px;
+  margin-top: 20px;
+}
+
+
+#rightArrow {
+  cursor: pointer !important;
+  user-select: none !important;
+  background-color: rgb(255, 255, 255) !important;
+  color: rgb(117, 117, 117) !important;
+  position: absolute !important;
+  top: 18px !important;
+  line-height: 0.78 !important;
+  right: 22px !important;
+  margin: 0px !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: rgb(228, 231, 231) !important;
+  border-image: initial !important;
+  border-radius: 3px !important;
+  padding: 6px 9px !important;
+}
+
+#leftArrow {
+  cursor: pointer !important;
+  user-select: none !important;
+  background-color: rgb(255, 255, 255) !important;
+  color: rgb(117, 117, 117) !important;
+  position: absolute !important;
+  top: 18px !important;
+  line-height: 0.78 !important;
+  left: 22px !important;
+  margin: 0px !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: rgb(228, 231, 231) !important;
+  border-image: initial !important;
+  border-radius: 3px !important;
+  padding: 6px 9px !important;
+}
+
+.svgLeftArrow {
+  height: 19px !important;
+  width: 19px !important;
+  fill: rgb(130, 136, 138) !important;
+  display: block !important;
+}
+
+.svgRightArrow {
+height: 19px !important;
+width: 19px !important;
+fill: rgb(130, 136, 138) !important;
+display: block !important;
+}
+
+.weekDaysActiveNormal {
+  border: 0.5px solid #eeeeee;
+  padding: 10px;
+  margin: 0px;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+}
+
+
+.weekDaysActiveNormal:hover {
+  background-color:#eeeeee;
+  color: #ffffff;
+  cursor: pointer !important;
+}
+
+.weekDaysActiveSelected {
+  border: 0.5px solid #eeeeee;
+  padding: 10px;
+  margin: 0px;
+  width: 2em;
+  height: 2em;
+  background: #02A699;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer !important;
+}
+
+.weekDaysDisabledSelected {
+  border: 0.5px solid #eeeeee;
+  padding: 10px;
+  margin: 0px;
+  width: 2em;
+  height: 2em;
+  background: #02A699;
+  color: #ffffff;
+  text-align: center;
+}
+
+.weekDaysDisabledNormal {
+  border: 0.5px solid #eeeeee;
+  padding: 10px;
+  align-content: center;
+  margin: 0px;
+  width: 2em;
+  height: 2em;
+  text-decoration: line-through;
+  text-align: center;
+  pointer-events: none; 
+  color: #d8d8d8;
+}
+
+.weekDaysBetweenNormal {
+  border: 0.5px solid #eeeeee;
+  padding: 10px;
+  margin: 0px;
+  width: 2em;
+  height: 2em;
+  background: #02A699;
+  color: #ffffff;
+  text-align: center;
+}
+
+.clear {
+  color: #008489 !important;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+  overflow-wrap: break-word !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  border: 0px;
+  cursor: pointer !important;
+}
+
+.clearContainer {
+  margin: 0px !important;
+  text-align: right;
+}
+
+
+.calendarTable {
+  padding: 16px;
+  border-spacing: 0rem;
+  color: #484848;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.fillerDays {
+  padding: 10px;
+  align-content: center;
+  margin: 0px;
+  width: 2em;
+  height: 2em;
+  text-decoration: line-through;
+  text-align: center;
+  pointer-events: none; 
+  color: #d8d8d8;
+
+}
+
+.weekNames {
+  padding: 10px;
+  align-content: center;
+  width: 2em;
+  height: 2em;
+  margin: 0px;
+  color: #484848;
+}
+
+.clearDisclaimer {
+  font-size: 10px !important;
+  margin-top: 6px;
+  font-weight: 600;
+}
