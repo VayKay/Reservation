@@ -24,9 +24,7 @@ Description
 
 # usage
 
-NPM Install
-------------
-NPM start
+|NPM Install| NPM start
 
 
 
