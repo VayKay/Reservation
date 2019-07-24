@@ -2,10 +2,9 @@
 
 # Restful API
 The VayKay API Reservation/Calender 
-    -Will be able to pull data to show reservation listings available
-    -Will be able to pull data to show listings that have already been reserved
-    -Will be able to set different days were certain listings have different rates
-
+    |Will be able to pull data to show reservation listings available|
+    |Will be able to pull data to show listings that have already been reserved|
+    |Will be able to set different days were certain listings have different rates|
 
 
 
