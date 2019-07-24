@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "-y",
   "version": "",
   "description": "",
   "author": "",
@@ -8,11 +8,11 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "node server/index.js",
+    "start-server": "node server/index.js",
     "react-dev": "webpack -d --watch",
     "db": "node server/db/index.js",
     "seed": "node server/db/seed.js",
-    "start:docker": "npm run db && npm run seed && npm run start",
+    "start": "npm run db && npm run seed && npm run start-server",
     "test": "jest"
   },
   "jest": {
