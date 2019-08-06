@@ -5,3 +5,10 @@ reserved.csv
 newRelicKey
 newrelic.js
 Reservations.pem
+gzip
+ec2-3-84-249-38.compute-1.amazonaws 13-05-54-577
+ec2-user@ec2-3-84-249-38.compute-1.amazonaws 13-05-54-603
+ec2-user@ec2-3-84-249-38.compute-1.amazonaws 13-05-54-615
+custom.csv.gz
+listing.csv.gz
+reserved.csv.gz
