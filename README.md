@@ -13,10 +13,11 @@ The VayKay API Reservation/Calender
 
 | Http Request  | API Request         | Description                                        |
 | ------------- | ------------------- | -------------------------------------------------- |
-|      Get      | listing/:listingID  | If a listing exist, find an ID and return listing  |
-|     Post      | listing/            | post new listing that information                  |
-|   Update/Put  | listing/:listingID  | Find listing in the database and change the data   |
-|     Delete    | listing/:listingID  | Delete listing                                     |
+|      Get      | listing/:listingID  | Responds with info about the listing with that ID  |
+|     Post      | listing/            | Create new listing from request body               |
+|   Update/Put  | listing/:listingID  | Update listing by ID                               |
+|     Delete    | listing/:listingID  | Delete listing by ID                               |
+
 
 
 # usage

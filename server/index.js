@@ -1,55 +1,48 @@
+const newRelic = require('newrelic');
 const express = require('express');
 const path = require('path');
 const app = express();
 const port = 3006;
 const bodyParser = require('body-parser');
-const sequelize = require('sequelize');
-const db = require('./db/index.js');
+const pool = require('./db/postgres.js');
+
 
 app.use(bodyParser());
 app.use('/:listingID', express.static(path.resolve(__dirname, '../public/dist')));
 
-app.get('/listing/:listingID', (req, res) => {
-  const { listingID } = req.params;
+// app.get('/listing/:listingID', (req, res) => {
+//   const listingQuery = `Select * from listing where id  = ${req.params.listingID}`
+//   pool.query(listingQuery, (err, results) => {
+//     if (err) {
+//       console.log(err.stack)
+//     } else {
+//       res.send(results.rows)
+//     }
+//   })
+// });
 
-  db.Listing.findOne({
-    where: {
-      id: listingID,
-    },
-  }).then(results => res.send(results))
-    .catch(error => res.send(error));
-});
-
-app.get('/reserved/month/', (req, res) => {
-  const { id, month, year } = req.query;
-
-  db.Reserved.findAll({
-    attributes: ['date'],
-    where: {
-      where: sequelize.where(sequelize.fn('YEAR', sequelize.col('date')), year),
-      $and: sequelize.where(sequelize.fn('MONTH', sequelize.col('date')), month),
-      listing_id: id,
-    },
+let count = 100000015
+app.post('/listing/post', (req, res) => {
+  let postReserve = `INSERT INTO reserved(id, listing_id, dates) VALUES(${count}, ${Math.floor((Math.random() * 10000000) + 1)}, '2020-02-03' )`
+  pool.query(postReserve, (err, results) => {
+    if (err) {
+      console.log(err.stack)
+    } else {
+      count++
+      res.sendStatus(200);
+    }
   })
-  .then((results) => {
-    const days = results.map(date => Number(date.date.slice(-2)));
-    res.send(days);
-  })
-    .catch(error => res.send(error));
-});
+})
 
-app.get('/custom/month/', (req, res) => {
-  const { id, time } = req.query;
+// `INSERT INTO reserved(listing_id, dates) VALUES(Math.floor((Math.random() * 10000000) + 1), 2020-01-03)`
 
-  db.CustomRates.findAll({
-    attributes: ['date', 'price'],
-    where: {
-      date: time,
-      listing_id: id,
-    },
-  })
-    .then(results => res.send(results))
-    .catch(error => res.send(error));
-});
+
+// app.get('/reserved/month/', (req, res) => {
+ 
+// });
+
+// app.get('/custom/month/', (req, res) => {
+  
+// });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
