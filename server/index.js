@@ -10,16 +10,17 @@ const pool = require('./db/postgres.js');
 app.use(bodyParser());
 app.use('/:listingID', express.static(path.resolve(__dirname, '../public/dist')));
 
-// app.get('/listing/:listingID', (req, res) => {
-//   const listingQuery = `Select * from listing where id  = ${req.params.listingID}`
-//   pool.query(listingQuery, (err, results) => {
-//     if (err) {
-//       console.log(err.stack)
-//     } else {
-//       res.send(results.rows)
-//     }
-//   })
-// });
+app.get('/listing/:listingID', (req, res) => {
+  const listingQuery = `Select * from listing where id  = ${req.params.listingID}`
+  pool.query(listingQuery, (err, results) => {
+    if (err) {
+      console.log(err.stack)
+    } else {
+      res.send(results.rows)
+    }
+  })
+});
+
 
 let count = 100000015
 app.post('/listing/post', (req, res) => {
@@ -34,7 +35,19 @@ app.post('/listing/post', (req, res) => {
   })
 })
 
-// `INSERT INTO reserved(listing_id, dates) VALUES(Math.floor((Math.random() * 10000000) + 1), 2020-01-03)`
+//10% discount for a reservation!
+app.put('/listing/update', (req, res) => {
+  let updateRes = `UPDATE listing SET base_rate = base_rate * 0.9 WHERE id = 3`
+  pool.query(updateRes, (err, results) => {
+    if (err) {
+      console.log(err.stack)
+    } else {
+      res.sendStatus(200);
+    }
+  })
+})
+
+
 
 
 // app.get('/reserved/month/', (req, res) => {
