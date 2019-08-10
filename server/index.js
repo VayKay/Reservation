@@ -1,97 +1,86 @@
-const newRelic = require('newrelic');
 const express = require('express');
-const path = require('path');
-const app = express();
-const port = 3006;
 const bodyParser = require('body-parser');
+const path = require('path');
+const newRelic = require('newrelic');
 const pool = require('./db/postgres.js');
 
-// NEVER put HTTP verb in endpoint path
-// Refactor any long query strings to be on multiple lines (requires backticks)
-// API routes must act on data in your
+const app = express();
+const port = 3006;
 
 app.use(bodyParser());
 app.use('/:listingID', express.static(path.resolve(__dirname, '../public/dist')));
 
-//Get listing information
+// Get listing information
 app.get('/listing/:listingID', (req, res) => {
-  const listingQuery = `Select * from listing where id  = ${req.params.listingID}`
-  pool.query(listingQuery, (err, results) => {
+  const listingQuery = `Select * from listing where id  = ${req.params.listingID}`;
+  pool.query(listingQuery, (err, { rows }) => {
     if (err) {
       console.log(err.stack);
+      res.sendStatus(404);
     } else {
-      res.send(results.rows);
+      res.send(rows);
     }
   });
 });
 
-//Reserve a listing
-let count = 10000000
-app.post('/listing/post', (req, res) => {
-  let postReserve = `
-    INSERT INTO reserved(id, listing_id, dates)
-      VALUES(
-        ${count},
-        ${Math.floor((Math.random() * 10000000) + 1)},
-        '2020-02-03'
-      )
-  `;
-  pool.query(postReserve, (err) => {
+app.post('/listing/:listingId/reservation', (req, res) => {
+  const query = 'SELECT * FROM reservations ORDER BY ID DESC LIMIT 1;';
+  pool.query(query, (err, lastReservationInTable) => {
     if (err) {
       console.log(err.stack);
+      res.sendStatus(500);
     } else {
-      count++
-      res.sendStatus(200);
+      const nextId = lastReservationInTable.rows[0].id + 1;
+      const insertReservation = `
+        INSERT INTO reservations(id, listing_id, dates)
+          VALUES(
+            ${nextId},
+            ${req.params.listingId},
+            ${req.body.date}
+          )
+      `;
+      pool.query(insertReservation, (error) => {
+        if (error) {
+          console.log(error.stack);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(201);
+        }
+      });
     }
   });
-})
+});
 
-//10% discount for a reservation!
-app.put('/listing/update', (req, res) => {
-  let updateRes = `UPDATE listing SET base_rate = base_rate * .9 WHERE id = ${Math.floor((Math.random() * 10000000) + 1)};`
+// 10% discount for a listing!
+app.put('/listing/:listingID/base_price', (req, res) => {
+  const updateRes = `
+    UPDATE listing SET base_rate = base_rate * .9
+      WHERE id = ${req.params.listingID};
+  `;
   pool.query(updateRes, (err) => {
     if (err) {
-      console.log(err.stack)
+      console.log(err.stack);
+      res.sendStatus(404);
     } else {
       res.sendStatus(200);
     }
-  })
-})
-
-//Delete a reservation
-app.delete('/listing/delete', (req, res) => {
-  let deleteRes = `DELETE from reserved where id = ${Math.floor((Math.random() * 10000000) + 1)};`
-  pool.query(deleteRes, (err) => {
-    if (err) {
-      console.log(err.stack)
-    } else {
-      res.sendStatus(200);
-    }
-  })
-})
-
-// get reserved month information
-app.get('/reserved/month/', (req, res) => {
-  let getReserveMonth = `Select * from reserved where id = 1;`
-  pool.query(getReserveMonth, (err, results) => {
-    if (err) {
-      console.log(err.stack)
-    } else {
-      res.send(results.rows);
-    }
-  })
+  });
 });
 
-//get 
-app.get('/custom/month/', (req, res) => {
-  let getCustomMonth = `Select * from custom_rates where id = 1;`
-  pool.query(getCustomMonth, (err, results) => {
+// Delete a reservation
+app.delete('/reservation/:reservationID', (req, res) => {
+  const deleteRes = `
+    DELETE from reservations 
+      WHERE id = ${req.params.reservationID};
+  `;
+  pool.query(deleteRes, (err) => {
     if (err) {
-      console.log(err.stack)
+      console.log(err.stack);
+      res.sendStatus(404);
     } else {
-      res.send(results.rows);
+      res.sendStatus(200);
     }
-  })
+  });
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

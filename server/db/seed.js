@@ -52,12 +52,12 @@ function seedReserves() {
       let ReservedDates = faker.date.between('2019-07-04', '2021-07-30');
 
       let listing_id = function () {
-        if (listing_count < 10000) {
+         if (listing_count < 10000) {
           return listing_count  
-        } else {
-          listing_count = 1;
+       } else {
+         listing_count = 1;
         }
-      }
+       }
       listing_count++;
       i--;
       if (i === 0) {
@@ -120,43 +120,4 @@ seedCustomRates()
 
 
 
-// generateCustom = () => {
-//   let listing_id = 1;
 
-//   while (listing_id < 101) {
-//     let date1 = faker.date.between('2019-07-04', '2019-07-14');
-//     let date2 = faker.date.between('2019-07-15', '2019-07-30');
-//     let date3 = faker.date.between('2019-08-01', '2019-08-14');
-//     let date4 = faker.date.between('2019-08-15', '2019-08-30');
-//     let price = faker.finance.amount(100,400,0);
-
-//     db.CustomRates.create({
-//       listing_id,
-//       date: date1,
-//       price: price
-//     })
-
-//     db.CustomRates.create({
-//       listing_id,
-//       date: date2,
-//       price: price
-//     })
-
-//     db.CustomRates.create({
-//       listing_id,
-//       date: date3,
-//       price: price
-//     })
-
-//     db.CustomRates.create({
-//       listing_id,
-//       date: date4,
-//       price: price
-//     })
-
-//     listing_id = listing_id + 3;
-
-//   }
-// }
-
-  // generateListing();
