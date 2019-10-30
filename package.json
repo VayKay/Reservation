@@ -51,7 +51,7 @@
     "react-number-format": "^4.0.8",
     "react-outside-click-handler": "^1.2.3",
     "regenerator-runtime": "^0.13.2",
-    "sequelize": "^5.10.1",
+    "sequelize": "^5.15.1",
     "webpack-cli": "^3.3.6"
   },
   "devDependencies": {
